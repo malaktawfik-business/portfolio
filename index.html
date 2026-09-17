@@ -74,8 +74,7 @@
     .btn-ghost { font-size: 14px; font-weight: 500; color: var(--muted); text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 2px; transition: color 0.2s; }
     .btn-ghost:hover { color: var(--ink); }
 
-    /* ─── HERO RIGHT — PHOTO ─── */
-/* ─── HERO RIGHT — PROFILE CARD (FROM V1) ─── */
+    /* ─── HERO RIGHT — PROFILE CARD ─── */
     .hero-right {
       position: relative; z-index: 2;
       opacity: 0; animation: fadeIn 1.2s ease forwards 1s;
@@ -111,7 +110,7 @@
     }
     .p-stat { text-align: center; }
     .p-stat-val {
-      font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700;
+      font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700;
       color: var(--ink); display: block; line-height: 1;
     }
     .p-stat-val span { color: var(--accent); }
@@ -129,7 +128,6 @@
       transform: scaleX(0); transform-origin: left;
       animation: growSkill 1.2s cubic-bezier(0.34,1.2,0.64,1) forwards;
     }
-    @keyframes growSkill { to { transform: scaleX(1); } }
 
     .availability-pill {
       display: flex; align-items: center; gap: 10px;
@@ -137,7 +135,6 @@
       font-size: 12px; font-weight: 600; color: var(--ink2);
     }
     .avail-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); flex-shrink: 0; animation: pulse-dot 2s ease-in-out infinite; }
-    @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(1.3)} }
 
     .float-tag {
       position: absolute; background: var(--ink); color: var(--cream);
@@ -145,13 +142,9 @@
       border-radius: 50px; letter-spacing: 0.04em; white-space: nowrap;
       animation: float 3s ease-in-out infinite;
     }
-.float-tag.t1 { 
-      top: -165px; 
-      right: -10px; 
-      animation-delay: 0s; 
-      background: var(--ink); /* Dark background to contrast with the bottom tag */
-    }
+    .float-tag.t1 { top: -165px; right: -10px; animation-delay: 0s; background: var(--ink); }
     .float-tag.t2 { bottom: -14px; left: 16px; animation-delay: 1.5s; background: var(--accent); }
+
     /* ─── MARQUEE ─── */
     .marquee-wrap { background: var(--ink); overflow: hidden; padding: 18px 0; }
     .marquee-track { display: flex; gap: 0; animation: marquee 24s linear infinite; width: max-content; }
@@ -255,8 +248,9 @@
     .proj-desc { font-size: 13px; line-height: 1.65; color: var(--ink2); font-weight: 300; flex: 1; }
     .proj-footer { display: flex; gap: 8px; margin-top: 20px; flex-wrap: wrap; }
     .proj-tag { font-size: 11px; font-weight: 600; background: var(--cream2); border: 1px solid var(--border); color: var(--muted); padding: 4px 10px; border-radius: 3px; }
+    .proj-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; font-size: 12px; font-weight: 600; color: var(--accent); text-decoration: none; letter-spacing: 0.04em; }
+    .proj-link:hover { color: var(--ink); }
 
-    /* placeholder CTA card */
     .proj-add-card {
       border-radius: 14px; border: 2px dashed var(--border);
       display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -269,51 +263,36 @@
     .proj-add-icon { font-size: 36px; opacity: 0.3; }
     .proj-add-text { font-size: 14px; font-weight: 500; color: var(--muted); line-height: 1.5; }
 
-    /* ─── CERTIFICATES ─── */
-    #certificates { padding: 120px 60px; background: var(--cream2); }
-    .certs-header { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 80px; }
-    .certs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    /* ─── CERTIFICATES — horizontal scroll ─── */
+    #certificates { padding: 120px 0 120px; background: var(--cream2); }
+    .certs-header { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 56px; padding: 0 60px; }
+    .certs-scroll-wrap { position: relative; }
+    .certs-scroll {
+      display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x proximity;
+      padding: 4px 60px 24px; scrollbar-width: thin; scrollbar-color: var(--accent) transparent;
+    }
+    .certs-scroll::-webkit-scrollbar { height: 6px; }
+    .certs-scroll::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+    .certs-scroll::-webkit-scrollbar-track { background: transparent; }
     .cert-card {
       background: #fff; border-radius: 12px; border: 1px solid var(--border);
-      padding: 24px 28px; display: flex; align-items: flex-start; gap: 18px;
+      padding: 24px 26px; display: flex; flex-direction: column; gap: 14px;
       transition: box-shadow 0.3s, transform 0.3s;
+      flex: 0 0 260px; scroll-snap-align: start;
       opacity: 0; transform: translateY(20px);
     }
     .cert-card.visible { opacity: 1; transform: translateY(0); transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s; }
-    .cert-card:hover { box-shadow: 0 12px 40px rgba(24,24,27,0.08); transform: translateY(-3px); }
+    .cert-card:hover { box-shadow: 0 12px 40px rgba(24,24,27,0.08); transform: translateY(-4px); }
+    .cert-card.in-progress { border: 1px dashed var(--gold); background: linear-gradient(180deg,#fff,rgba(212,169,106,0.06)); }
     .cert-icon-wrap { width: 44px; height: 44px; border-radius: 10px; background: var(--cream2); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
     .cert-info { flex: 1; min-width: 0; }
     .cert-name { font-size: 14px; font-weight: 600; color: var(--ink); line-height: 1.35; margin-bottom: 4px; }
     .cert-org { font-size: 12px; color: var(--muted); font-weight: 400; }
     .cert-date { font-size: 11px; font-weight: 600; color: var(--accent); margin-top: 8px; letter-spacing: 0.04em; }
-
-    /* ─── YET TO COME ─── */
-    #upcoming { background: var(--ink); padding: 100px 60px; }
-    .upcoming-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-    .upcoming-left .section-eyebrow { color: var(--accent2); }
-    .upcoming-left .section-eyebrow::before { background: var(--accent2); }
-    .upcoming-left .section-title { color: var(--cream); }
-    .upcoming-left .section-desc { color: rgba(250,248,244,0.65); margin-top: 20px; max-width: 400px; }
-    .upcoming-cards { display: flex; flex-direction: column; gap: 20px; }
-    .upcoming-card {
-      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 14px; padding: 28px 32px;
-      display: flex; align-items: flex-start; gap: 20px;
-      transition: background 0.3s; opacity: 0; transform: translateX(20px);
-    }
-    .upcoming-card.visible { opacity: 1; transform: translateX(0); transition: opacity 0.6s ease, transform 0.6s ease, background 0.3s; }
-    .upcoming-card:hover { background: rgba(255,255,255,0.1); }
-    .upcoming-icon { width: 48px; height: 48px; border-radius: 12px; background: rgba(194,113,79,0.2); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
-    .upcoming-info { flex: 1; }
-    .upcoming-name { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: var(--cream); margin-bottom: 6px; }
-    .upcoming-org { font-size: 13px; color: rgba(250,248,244,0.5); font-weight: 400; margin-bottom: 12px; }
-    .upcoming-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--gold); background: rgba(212,169,106,0.12); border: 1px solid rgba(212,169,106,0.3);
-      padding: 5px 14px; border-radius: 50px;
-    }
-    .upcoming-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: pulse-dot 1.8s ease-in-out infinite; }
+    .cert-status { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); }
+    .cert-status::before { content:''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: pulse-dot 1.8s ease-in-out infinite; }
+    .certs-hint { padding: 0 60px; font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+    .certs-hint svg { width: 14px; height: 14px; }
 
     /* ─── EDUCATION ─── */
     #education { background: var(--cream); padding: 100px 60px; }
@@ -325,7 +304,7 @@
     .edu-uni { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
     .edu-degree { font-size: 15px; color: var(--ink2); font-weight: 400; margin-bottom: 32px; line-height: 1.5; }
     .edu-stats { display: flex; gap: 32px; flex-wrap: wrap; }
-    .edu-stat-val { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 900; color: var(--ink); display: block; }
+    .edu-stat-val { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 900; color: var(--ink); display: block; }
     .edu-stat-val span { color: var(--accent); }
     .edu-stat-label { font-size: 12px; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 3px; display: block; }
 
@@ -345,22 +324,6 @@
     .contact-link { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 500; color: var(--ink2); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 3px; transition: color 0.2s, border-color 0.2s; }
     .contact-link:hover { color: var(--accent); border-color: var(--accent); }
     .contact-link svg { width: 18px; height: 18px; flex-shrink: 0; }
-    .message-btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 44px; background: var(--accent); color: #fff; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; border: none; border-radius: 2px; cursor: none; transition: background 0.25s, transform 0.2s; margin-bottom: 40px; }
-    .message-btn:hover { background: var(--ink); transform: translateY(-2px); }
-    .message-box { display: none; text-align: left; }
-    .message-box.active { display: block; animation: slideUp 0.4s ease; }
-    .message-box form { display: flex; flex-direction: column; gap: 16px; }
-    .message-box input, .message-box textarea { width: 100%; padding: 14px 18px; border: 1px solid var(--border); border-radius: 4px; background: #fff; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--ink); outline: none; transition: border-color 0.2s; }
-    .message-box input:focus, .message-box textarea:focus { border-color: var(--accent); }
-    .message-box textarea { resize: vertical; min-height: 120px; }
-    .message-box input[type="file"] { padding: 10px 14px; font-size: 13px; color: var(--muted); }
-    .form-btns { display: flex; gap: 12px; }
-    .form-btns button[type="submit"] { flex: 1; padding: 14px; background: var(--ink); color: var(--cream); border: none; border-radius: 4px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; cursor: none; transition: background 0.25s; }
-    .form-btns button[type="submit"]:hover { background: var(--accent); }
-    .close-btn { padding: 14px 24px; background: transparent; color: var(--muted); border: 1px solid var(--border); border-radius: 4px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: none; transition: color 0.2s, border-color 0.2s; }
-    .close-btn:hover { color: var(--ink); border-color: var(--ink); }
-    .confirmation { display: none; text-align: center; padding: 20px; color: var(--green); font-weight: 600; font-size: 15px; background: var(--green-bg); border-radius: 8px; margin-top: 12px; }
-    .confirmation.active { display: block; animation: slideUp 0.3s ease; }
     .footer-line { display: flex; justify-content: space-between; align-items: center; padding-top: 40px; margin-top: 40px; border-top: 1px solid var(--border); font-size: 13px; color: var(--muted); }
 
     /* ─── RESPONSIVE ─── */
@@ -369,9 +332,12 @@
       nav { gap: 16px; }
       .hero { grid-template-columns: 1fr; padding: 100px 24px 60px; }
       .hero-right { display: none; }
-      #experience, #achievements, #skills, #projects, #certificates, #upcoming, #education, #contact { padding: 80px 24px; }
-      .exp-header, .certs-header, .edu-inner, .skills-grid, .ach-grid, .projects-grid, .certs-grid { grid-template-columns: 1fr; }
-      .upcoming-inner { grid-template-columns: 1fr; gap: 48px; }
+      #experience, #achievements, #skills, #projects, #education, #contact { padding: 80px 24px; }
+      #certificates { padding: 80px 0; }
+      .certs-header { grid-template-columns: 1fr; padding: 0 24px; }
+      .certs-scroll { padding: 4px 24px 24px; }
+      .certs-hint { padding: 0 24px; }
+      .exp-header, .edu-inner, .skills-grid, .ach-grid, .projects-grid { grid-template-columns: 1fr; }
       .tl-item { grid-template-columns: 40px 1fr; gap: 20px; }
       .timeline::before { left: 16px; }
       .projects-top { flex-direction: column; align-items: flex-start; gap: 20px; }
@@ -405,12 +371,12 @@
       <span class="block"><em>data.</em></span>
     </h1>
     <p class="hero-desc">
-      Finance & Accounting senior with hands-on experience across banking, credit risk, and industrial finance — backed by a sharp data analytics toolkit and a global competition ranking.
+      Finance & Accounting graduate with hands-on experience across Big 4 audit methodology, commercial banking risk, credit scoring, and industrial finance — backed by a sharp data analytics toolkit and a global competition ranking.
     </p>
     <div class="hero-badges">
-      <div class="hero-badge gold-badge">🏆 LSEG Top 50 Global</div>
-      <div class="hero-badge">🇪🇬 EGX Ambassador</div>
-      <div class="hero-badge green-badge">🎓 Aug 2026 Graduate</div>
+      <div class="hero-badge gold-badge">🏆 45th Globally — LSEG CEEMA</div>
+      <div class="hero-badge">🎓 77% — Very Good with Honours</div>
+      <div class="hero-badge green-badge">📅 Graduated July 2026</div>
     </div>
     <div class="hero-actions">
       <a href="#contact" class="btn-primary">
@@ -421,28 +387,27 @@
     </div>
   </div>
 
-<div class="hero-right">
+  <div class="hero-right">
     <div class="profile-card">
+      <div class="float-tag t1">☁️ SAP S/4HANA + SAC in progress</div>
       <div class="profile-top">
         <div class="profile-avatar">MT</div>
         <div>
           <div class="profile-name">Malak Tawfik</div>
-          <div class="profile-role">Finance &amp; Data Analytics · BUE · 2026</div>
+          <div class="profile-role">Finance &amp; Accounting · BUE/LSBU · 2026</div>
         </div>
       </div>
-<div class="hero-right">
-    <div class="float-tag t1">☁️ SAP Cloud Analytics Semi-finalist</div>
       <div class="profile-stats">
         <div class="p-stat">
-          <span class="p-stat-val">3<span>.0</span></span>
-          <span class="p-stat-label">GPA / 4.0</span>
+          <span class="p-stat-val">77<span>%</span></span>
+          <span class="p-stat-label">Final Award</span>
         </div>
         <div class="p-stat">
-          <span class="p-stat-val">3<span>+</span></span>
-          <span class="p-stat-label">Internships</span>
+          <span class="p-stat-val">6</span>
+          <span class="p-stat-label">Placements</span>
         </div>
         <div class="p-stat">
-          <span class="p-stat-val">47<span>th</span></span>
+          <span class="p-stat-val">45<span>th</span></span>
           <span class="p-stat-label">Global Rank</span>
         </div>
       </div>
@@ -471,8 +436,7 @@
         Open to internship &amp; full-time opportunities
       </div>
     </div>
-    <div class="float-tag t2">🎓 2:1 Upper Second Class</div>
-  </div>
+    <div class="float-tag t2">🎓 6 exemptions — ACCA</div>
   </div>
 </section>
 
@@ -486,7 +450,7 @@
     <div class="marquee-item"><div class="marquee-dot"></div>Advanced Excel</div>
     <div class="marquee-item"><div class="marquee-dot"></div>Financial Modeling</div>
     <div class="marquee-item"><div class="marquee-dot"></div>Credit Scoring</div>
-    <div class="marquee-item"><div class="marquee-dot"></div>SAP</div>
+    <div class="marquee-item"><div class="marquee-dot"></div>SAP S/4HANA</div>
     <div class="marquee-item"><div class="marquee-dot"></div>LSEG Workspace</div>
     <div class="marquee-item"><div class="marquee-dot"></div>PowerPoint</div>
     <div class="marquee-item"><div class="marquee-dot"></div>Power BI</div>
@@ -496,7 +460,7 @@
     <div class="marquee-item"><div class="marquee-dot"></div>Advanced Excel</div>
     <div class="marquee-item"><div class="marquee-dot"></div>Financial Modeling</div>
     <div class="marquee-item"><div class="marquee-dot"></div>Credit Scoring</div>
-    <div class="marquee-item"><div class="marquee-dot"></div>SAP</div>
+    <div class="marquee-item"><div class="marquee-dot"></div>SAP S/4HANA</div>
     <div class="marquee-item"><div class="marquee-dot"></div>LSEG Workspace</div>
     <div class="marquee-item"><div class="marquee-dot"></div>PowerPoint</div>
   </div>
@@ -509,24 +473,38 @@
       <div class="section-eyebrow">Work Experience</div>
       <h2 class="section-title">Built in the<br><em>real world.</em></h2>
     </div>
-    <p class="section-desc reveal">Three internships across Egypt's most prominent financial institutions — banking, credit risk, and industrial finance — all before graduation.</p>
+    <p class="section-desc reveal">Six placements across Egypt's most prominent institutions — Big 4 audit, banking, credit risk, and industrial finance — all before graduation.</p>
   </div>
 
   <div class="timeline">
 
     <div class="tl-item reveal">
+      <div class="tl-dot">🧾</div>
+      <div class="tl-content">
+        <div class="tl-meta">
+          <div><div class="tl-company">PwC Middle East</div><div class="tl-role">Audit Simulation Participant</div></div>
+          <div class="tl-date">April 2026</div>
+        </div>
+        <div class="tl-bullets">
+          <div class="tl-bullet">Completed PwC's in-person Audit Simulation Program, applying structured financial analysis to operational datasets to identify risk factors.</div>
+          <div class="tl-bullet">Presented findings and recommendations to an executive panel, translating audit methodology into client-ready conclusions.</div>
+        </div>
+        <div class="tl-tags"><span class="tl-tag">Audit Methodology</span><span class="tl-tag">Risk Identification</span><span class="tl-tag">Executive Presentation</span></div>
+      </div>
+    </div>
+
+    <div class="tl-item reveal">
       <div class="tl-dot">🏦</div>
       <div class="tl-content">
         <div class="tl-meta">
-          <div><div class="tl-company">Commercial International Bank (CIB)</div><div class="tl-role">Banking Intern</div></div>
+          <div><div class="tl-company">Commercial International Bank (CIB)</div><div class="tl-role">Finance and Compliance Intern</div></div>
           <div class="tl-date">Sep – Oct 2025</div>
         </div>
         <div class="tl-bullets">
-          <div class="tl-bullet">Rotated across retail banking, operations, and digital banking — gaining full-cycle exposure to Egypt's largest private-sector bank.</div>
-          <div class="tl-bullet">Supported compliance checks, account reconciliation, and AML procedures; assisted with customer account openings and loan documentation.</div>
-          <div class="tl-bullet">Documented service workflows and prepared internal reports; shadowed the digital banking team on customer adoption of online platforms.</div>
+          <div class="tl-bullet">Structured an ambiguous risk-assessment problem across internal control and transaction-monitoring processes with no predefined framework.</div>
+          <div class="tl-bullet">Findings directly shaped risk-based recommendations presented to compliance leadership, aligned to CBE standards.</div>
         </div>
-        <div class="tl-tags"><span class="tl-tag">Banking Ops</span><span class="tl-tag">AML Compliance</span><span class="tl-tag">Reconciliation</span><span class="tl-tag">Client Relations</span></div>
+        <div class="tl-tags"><span class="tl-tag">Risk Assessment</span><span class="tl-tag">CBE Compliance</span><span class="tl-tag">Transaction Monitoring</span></div>
       </div>
     </div>
 
@@ -534,15 +512,14 @@
       <div class="tl-dot">📉</div>
       <div class="tl-content">
         <div class="tl-meta">
-          <div><div class="tl-company">iScore — Egyptian Credit Bureau</div><div class="tl-role">Credit Scoring Intern</div></div>
+          <div><div class="tl-company">iScore — Egyptian Credit Bureau</div><div class="tl-role">Scoring Intern</div></div>
           <div class="tl-date">Aug – Sep 2025</div>
         </div>
         <div class="tl-bullets">
-          <div class="tl-bullet">Applied credit scoring methodologies — payment history analysis, debt-to-income ratios — and supported generation of consumer & corporate credit reports.</div>
-          <div class="tl-bullet">Conducted preliminary data validation and quality checks on financial records, reducing reporting inconsistencies.</div>
-          <div class="tl-bullet">Participated in case studies on risk evaluation; identified trends in customer credit behavior and scoring errors.</div>
+          <div class="tl-bullet">Diagnosed inefficiency in a manual compliance testing workflow and designed automation covering 82% of it.</div>
+          <div class="tl-bullet">Cut review cycle time and changed how the team processed consumer and corporate datasets going forward.</div>
         </div>
-        <div class="tl-tags"><span class="tl-tag">Credit Scoring</span><span class="tl-tag">Risk Assessment</span><span class="tl-tag">CBE Regulations</span><span class="tl-tag">Data Validation</span></div>
+        <div class="tl-tags"><span class="tl-tag">Credit Scoring</span><span class="tl-tag">Workflow Automation</span><span class="tl-tag">Data Validation</span></div>
       </div>
     </div>
 
@@ -550,15 +527,14 @@
       <div class="tl-dot">⚡</div>
       <div class="tl-content">
         <div class="tl-meta">
-          <div><div class="tl-company">Elsewedy Electric — T&D</div><div class="tl-role">Finance Intern</div></div>
+          <div><div class="tl-company">Elsewedy Electric</div><div class="tl-role">Finance Intern</div></div>
           <div class="tl-date">Jul – Aug 2025</div>
         </div>
         <div class="tl-bullets">
-          <div class="tl-bullet">Improved AP/AR record accuracy by <strong>15%</strong> through rigorous data entry validation and transaction log audits.</div>
-          <div class="tl-bullet">Assisted in monthly financial reports, reconciliations, and variance analyses; contributed to cost-tracking and budget variance monitoring.</div>
-          <div class="tl-bullet">Built pivot tables and financial models in Excel to automate recurring reporting tasks; shadowed treasury operations and liquidity management.</div>
+          <div class="tl-bullet">Validated and reconciled AP and AR records, improving data accuracy by <strong>15%</strong>.</div>
+          <div class="tl-bullet">Built automated Excel forecasting models to project working capital needs.</div>
         </div>
-        <div class="tl-tags"><span class="tl-tag">Excel Automation</span><span class="tl-tag">AP / AR</span><span class="tl-tag">Budgeting</span><span class="tl-tag">Variance Analysis</span></div>
+        <div class="tl-tags"><span class="tl-tag">Excel Automation</span><span class="tl-tag">AP / AR</span><span class="tl-tag">Forecasting</span></div>
       </div>
     </div>
 
@@ -570,10 +546,10 @@
           <div class="tl-date">Jun – Dec 2025</div>
         </div>
         <div class="tl-bullets">
-          <div class="tl-bullet">Trained intensively in SQL, Excel, Power BI, Tableau, and Python — applying each tool to real data analytics workflows and structured datasets.</div>
-          <div class="tl-bullet">Selected as program ambassador: supported peer trainees and developed data storytelling skills to communicate insights to non-technical stakeholders.</div>
+          <div class="tl-bullet">Recognized as a top performer by Egypt's Minister of Communications and Information Technology.</div>
+          <div class="tl-bullet">Applied Python, SQL, and Power BI across 5+ projects to model trends and deliver stakeholder-ready insight.</div>
         </div>
-        <div class="tl-tags"><span class="tl-tag">Power BI</span><span class="tl-tag">Tableau</span><span class="tl-tag">Python</span><span class="tl-tag">SQL</span><span class="tl-tag">Data Storytelling</span></div>
+        <div class="tl-tags"><span class="tl-tag">Power BI</span><span class="tl-tag">Python</span><span class="tl-tag">SQL</span><span class="tl-tag">Data Storytelling</span></div>
       </div>
     </div>
 
@@ -581,14 +557,14 @@
       <div class="tl-dot">🏛️</div>
       <div class="tl-content">
         <div class="tl-meta">
-          <div><div class="tl-company">Egyptian Exchange (EGX)</div><div class="tl-role">Financial Literacy Ambassador</div></div>
+          <div><div class="tl-company">Egyptian Exchange (EGX)</div><div class="tl-role">Ambassador, Financial Literacy Ambassadorship</div></div>
           <div class="tl-date">Oct 2024 – Present</div>
         </div>
         <div class="tl-bullets">
-          <div class="tl-bullet">Represented EGX at national events including the Cairo International Book Fair, promoting financial inclusion to younger generations.</div>
-          <div class="tl-bullet">Delivered workshops on inflation, diversification, and investing using gamified tools and real-life scenarios to maximize retention.</div>
+          <div class="tl-bullet">Delivered financial literacy sessions to 500+ participants at national EGX events.</div>
+          <div class="tl-bullet">Translated capital markets and valuation concepts for diverse, non-technical audiences.</div>
         </div>
-        <div class="tl-tags"><span class="tl-tag">Financial Literacy</span><span class="tl-tag">Public Speaking</span><span class="tl-tag">Capital Markets</span><span class="tl-tag">Event Management</span></div>
+        <div class="tl-tags"><span class="tl-tag">Financial Literacy</span><span class="tl-tag">Public Speaking</span><span class="tl-tag">Capital Markets</span></div>
       </div>
     </div>
 
@@ -604,23 +580,23 @@
   <div class="ach-grid">
     <div class="ach-card featured">
       <span class="ach-icon">🏆</span>
-      <div class="ach-eyebrow">LSEG CEEMA Challenge · Oct–Nov 2025</div>
-      <div class="ach-title">Global Top 50 & University Rank #1</div>
-      <div class="ach-desc">Ranked 47th globally out of delegates from 50+ universities across 16 countries. Managed a virtual portfolio on LSEG Workspace / Refinitiv, optimizing from the iShares Russell 1000 ETF while maintaining a high Sharpe Ratio and ESG score ≥50.</div>
-      <div class="ach-stat">47<small>th / Global</small></div>
+      <div class="ach-eyebrow">LSEG CEEMA Virtual University · Oct–Nov 2025</div>
+      <div class="ach-title">1st at BUE & 45th Globally</div>
+      <div class="ach-desc">Ranked 1st at BUE and 45th globally out of 500+ participants across 50+ universities in 16 countries. Managed a live virtual investment portfolio on LSEG Workspace, optimizing asset allocation for a high Sharpe Ratio while maintaining an ESG score of 50 or above.</div>
+      <div class="ach-stat">45<small>th / Global</small></div>
     </div>
     <div class="ach-card">
       <span class="ach-icon">🎖️</span>
       <div class="ach-eyebrow">The British University in Egypt</div>
       <div class="ach-title">University Rank #1</div>
-      <div class="ach-desc">Placed first among all BUE participants in the LSEG challenge — the top-performing student in the university's entire cohort.</div>
+      <div class="ach-desc">Placed first among all BUE participants in the LSEG CEEMA challenge — the top-performing student in the university's entire cohort.</div>
       <div class="ach-stat">1<small>st at BUE</small></div>
     </div>
     <div class="ach-card">
       <span class="ach-icon">📢</span>
       <div class="ach-eyebrow">Egyptian Exchange · 2024–Present</div>
       <div class="ach-title">EGX Financial Literacy Ambassador</div>
-      <div class="ach-desc">One of a select group appointed by EGX to represent the exchange at national events and deliver investment literacy programs.</div>
+      <div class="ach-desc">One of a select group appointed by EGX to represent the exchange at national events and deliver investment literacy programs to 500+ participants.</div>
     </div>
   </div>
 </section>
@@ -634,22 +610,21 @@
   <div class="skills-grid">
     <div class="skill-group">
       <span class="sg-icon">💹</span>
-      <div class="sg-title">Finance & Accounting</div>
+      <div class="sg-title">Financial Modelling & Strategic Analysis</div>
       <div class="sg-sub">Domain expertise from real institutions</div>
       <div class="sg-chips">
+        <span class="sg-chip hot">Business Valuation</span>
         <span class="sg-chip hot">Financial Modeling</span>
-        <span class="sg-chip hot">Credit Scoring</span>
-        <span class="sg-chip">Risk Assessment</span>
-        <span class="sg-chip">AP / AR</span>
-        <span class="sg-chip">Portfolio Optimization</span>
-        <span class="sg-chip">ESG Analysis</span>
-        <span class="sg-chip">AML Compliance</span>
-        <span class="sg-chip">Budgeting</span>
+        <span class="sg-chip">Investment Appraisal</span>
+        <span class="sg-chip">Portfolio Management</span>
+        <span class="sg-chip">Asset Allocation</span>
+        <span class="sg-chip">IFRS Analysis</span>
+        <span class="sg-chip">LSEG Workspace/Refinitiv</span>
       </div>
     </div>
     <div class="skill-group">
       <span class="sg-icon">📊</span>
-      <div class="sg-title">Data & Visualization</div>
+      <div class="sg-title">Data Analytics & Digital Tools</div>
       <div class="sg-sub">Turning raw data into clear decisions</div>
       <div class="sg-chips">
         <span class="sg-chip hot">Power BI</span>
@@ -657,8 +632,8 @@
         <span class="sg-chip hot">Advanced Excel</span>
         <span class="sg-chip">Pivot Tables</span>
         <span class="sg-chip">Macros & VLOOKUP</span>
-        <span class="sg-chip">KPI Dashboards</span>
-        <span class="sg-chip">Microsoft Access</span>
+        <span class="sg-chip">SAP S/4HANA</span>
+        <span class="sg-chip">SAP Analytics Cloud</span>
       </div>
     </div>
     <div class="skill-group">
@@ -671,21 +646,19 @@
         <span class="sg-chip">Pandas</span>
         <span class="sg-chip">NumPy</span>
         <span class="sg-chip">Matplotlib</span>
-        <span class="sg-chip">SAP</span>
         <span class="sg-chip">HTML / CSS / JS</span>
       </div>
     </div>
     <div class="skill-group">
       <span class="sg-icon">📑</span>
-      <div class="sg-title">Reporting & Presentations</div>
+      <div class="sg-title">Professional Competencies</div>
       <div class="sg-sub">Insights that actually get read</div>
       <div class="sg-chips">
-        <span class="sg-chip hot">PowerPoint</span>
-        <span class="sg-chip">Executive Dashboards</span>
-        <span class="sg-chip">Investor Reports</span>
-        <span class="sg-chip">Data Narratives</span>
-        <span class="sg-chip">Workshop Design</span>
-        <span class="sg-chip">MS Office Suite</span>
+        <span class="sg-chip hot">Structured Problem-Solving</span>
+        <span class="sg-chip">Executive Communication</span>
+        <span class="sg-chip">Data Storytelling</span>
+        <span class="sg-chip">Stakeholder Management</span>
+        <span class="sg-chip">Client-Facing Analysis</span>
       </div>
     </div>
     <div class="skill-group">
@@ -693,7 +666,7 @@
       <div class="sg-title">Languages</div>
       <div class="sg-sub">Communicating clearly, in any room</div>
       <div class="sg-chips">
-        <span class="sg-chip hot">English — Full Professional</span>
+        <span class="sg-chip hot">English — Full Proficiency</span>
         <span class="sg-chip hot">Arabic — Native</span>
       </div>
     </div>
@@ -704,8 +677,8 @@
       <div class="sg-chips">
         <span class="sg-chip">LSEG Workspace / Refinitiv</span>
         <span class="sg-chip">Portfolio Analytics (PORT)</span>
-        <span class="sg-chip">SAP Business Suite</span>
-        <span class="sg-chip">iShares / ETF Screening</span>
+        <span class="sg-chip">SAP S/4HANA Cloud</span>
+        <span class="sg-chip">SAP Analytics Cloud</span>
       </div>
     </div>
   </div>
@@ -721,14 +694,9 @@
   </div>
 
   <div class="projects-grid">
-    <!-- Project 1 — Power BI -->
+    <!-- Project 1 — Power BI (real) -->
     <div class="proj-card">
       <div class="proj-thumb">
-        <!--
-          ─── ADD PROJECT SCREENSHOT HERE ───
-          Replace the placeholder div with:
-          <img src="project-1.jpg" alt="Project name">
-        -->
         <div class="proj-thumb-ph">
           <div class="ph-icon">📊</div>
           <div class="ph-text">Add screenshot</div>
@@ -736,96 +704,15 @@
         <span class="proj-tool-badge">Power BI</span>
       </div>
       <div class="proj-body">
-        <div class="proj-cat">Financial Dashboard</div>
-        <div class="proj-title">Add your project title here</div>
-        <div class="proj-desc">Describe what the dashboard shows, what problem it solves, and what impact it had. Replace this text with your actual project description.</div>
+        <div class="proj-cat">Financial / College Dashboard</div>
+        <div class="proj-title">College Power BI Dashboard</div>
+        <div class="proj-desc">Replace this line with one or two sentences on what the dashboard tracks, which data it uses, and the insight it surfaces — that specificity is what makes it read as real work, not a filler entry.</div>
         <div class="proj-footer">
           <span class="proj-tag">Power BI</span>
           <span class="proj-tag">DAX</span>
-          <span class="proj-tag">Financial Data</span>
         </div>
-      </div>
-    </div>
-
-    <!-- Project 2 — Tableau -->
-    <div class="proj-card">
-      <div class="proj-thumb">
-        <div class="proj-thumb-ph">
-          <div class="ph-icon">📈</div>
-          <div class="ph-text">Add screenshot</div>
-        </div>
-        <span class="proj-tool-badge">Tableau</span>
-      </div>
-      <div class="proj-body">
-        <div class="proj-cat">Data Visualization</div>
-        <div class="proj-title">Add your project title here</div>
-        <div class="proj-desc">Describe what insights the visualization reveals and what decision it helped drive. Replace with your real project details.</div>
-        <div class="proj-footer">
-          <span class="proj-tag">Tableau</span>
-          <span class="proj-tag">Market Analysis</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Project 3 — Excel / Python -->
-    <div class="proj-card">
-      <div class="proj-thumb">
-        <div class="proj-thumb-ph">
-          <div class="ph-icon">🐍</div>
-          <div class="ph-text">Add screenshot</div>
-        </div>
-        <span class="proj-tool-badge">Python</span>
-      </div>
-      <div class="proj-body">
-        <div class="proj-cat">Data Analysis</div>
-        <div class="proj-title">Add your project title here</div>
-        <div class="proj-desc">Summarize your Python or SQL analysis project here — the dataset, the findings, and the outcome. Swap in your real description.</div>
-        <div class="proj-footer">
-          <span class="proj-tag">Python</span>
-          <span class="proj-tag">Pandas</span>
-          <span class="proj-tag">SQL</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Project 4 — PowerPoint -->
-    <div class="proj-card">
-      <div class="proj-thumb">
-        <div class="proj-thumb-ph">
-          <div class="ph-icon">📑</div>
-          <div class="ph-text">Add screenshot</div>
-        </div>
-        <span class="proj-tool-badge">PowerPoint</span>
-      </div>
-      <div class="proj-body">
-        <div class="proj-cat">Presentation / Report</div>
-        <div class="proj-title">Add your project title here</div>
-        <div class="proj-desc">Describe an investor deck, executive report, or research presentation you built. What story did it tell? Replace with your real project.</div>
-        <div class="proj-footer">
-          <span class="proj-tag">PowerPoint</span>
-          <span class="proj-tag">Data Storytelling</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Project 5 — Excel -->
-    <div class="proj-card">
-      <div class="proj-thumb">
-        <div class="proj-thumb-ph">
-          <div class="ph-icon">📋</div>
-          <div class="ph-text">Add screenshot</div>
-        </div>
-        <span class="proj-tool-badge">Excel</span>
-      </div>
-      <div class="proj-body">
-        <div class="proj-cat">Financial Modeling</div>
-        <div class="proj-title">Add your project title here</div>
-        <div class="proj-desc">Share a financial model or Excel automation project — what it automated, how it improved accuracy. Replace with your actual work.</div>
-        <div class="proj-footer">
-          <span class="proj-tag">Excel</span>
-          <span class="proj-tag">Financial Model</span>
-          <span class="proj-tag">Automation</span>
-        </div>
+        <!-- Replace # with your live PowerBI / published report link -->
+        <a href="#" class="proj-link">View dashboard →</a>
       </div>
     </div>
 
@@ -837,133 +724,137 @@
   </div>
 </section>
 
-<!-- CERTIFICATES -->
+<!-- CERTIFICATES — horizontal scroll -->
 <section id="certificates">
   <div class="certs-header">
     <div class="reveal">
       <div class="section-eyebrow">Credentials</div>
       <h2 class="section-title">Learning that<br><em>never stops.</em></h2>
     </div>
-    <p class="section-desc reveal">A growing stack of certifications across finance, data analytics, technology, and leadership — from globally recognized institutions.</p>
+    <p class="section-desc reveal">A growing stack of certifications across finance, data analytics, and enterprise technology — scroll to see all of them.</p>
   </div>
 
-  <div class="certs-grid">
-    <div class="cert-card">
-      <div class="cert-icon-wrap">🏢</div>
-      <div class="cert-info">
-        <div class="cert-name">SAP Business Fundamentals Training (30 hrs)</div>
-        <div class="cert-org">SAP · The British University in Egypt</div>
-        <div class="cert-date">Jan 2026</div>
-      </div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-icon-wrap">📈</div>
-      <div class="cert-info">
-        <div class="cert-name">LSEG Financial Markets & Workspace Certificates</div>
-        <div class="cert-org">London Stock Exchange Group (LSEG)</div>
-        <div class="cert-date">Mar 2026</div>
-      </div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-icon-wrap">📋</div>
-      <div class="cert-info">
-        <div class="cert-name">Project Management Training</div>
-        <div class="cert-org">INJAZ Al-Arab · PMI Educational Foundation</div>
-        <div class="cert-date">Jun 2025</div>
-      </div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-icon-wrap">👩‍💼</div>
-      <div class="cert-info">
-        <div class="cert-name">She Leads Program</div>
-        <div class="cert-org">The British University in Egypt</div>
-        <div class="cert-date">Jun 2025</div>
-      </div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-icon-wrap">🔗</div>
-      <div class="cert-info">
-        <div class="cert-name">LinkedIn Workshop</div>
-        <div class="cert-org">The British University in Egypt</div>
-        <div class="cert-date">Jun 2025</div>
-      </div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-icon-wrap">💻</div>
-      <div class="cert-info">
-        <div class="cert-name">Front-End Web Development Program</div>
-        <div class="cert-org">Information Technology Institute (ITI)</div>
-        <div class="cert-date">Feb 2025</div>
-      </div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-icon-wrap">🌟</div>
-      <div class="cert-info">
-        <div class="cert-name">Youth Leadership & Empowerment Program</div>
-        <div class="cert-org">NXL</div>
-        <div class="cert-date">2024</div>
-      </div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-icon-wrap">🤖</div>
-      <div class="cert-info">
-        <div class="cert-name">AI Career Essentials Program</div>
-        <div class="cert-org">ALX Africa</div>
-        <div class="cert-date">2023</div>
-      </div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-icon-wrap">📡</div>
-      <div class="cert-info">
-        <div class="cert-name">Telecommunications & Regulatory Awareness</div>
-        <div class="cert-org">National Telecommunications Regulatory Authority (NTRA)</div>
-        <div class="cert-date">2023</div>
-      </div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-icon-wrap">⚖️</div>
-      <div class="cert-info">
-        <div class="cert-name">Intellectual Property Course</div>
-        <div class="cert-org">World Intellectual Property Organization (WIPO)</div>
-        <div class="cert-date">2022</div>
-      </div>
-    </div>
-    <div class="cert-card">
-      <div class="cert-icon-wrap">🎓</div>
-      <div class="cert-info">
-        <div class="cert-name">Leadership Program</div>
-        <div class="cert-org">The British University in Egypt</div>
-        <div class="cert-date">2022</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- YET TO COME -->
-<section id="upcoming">
-  <div class="upcoming-inner">
-    <div class="upcoming-left">
-      <div class="section-eyebrow reveal">Coming Soon</div>
-      <h2 class="section-title reveal">The next<br><em>level up.</em></h2>
-      <p class="section-desc reveal">Two SAP enterprise certifications in progress — adding cloud analytics and ERP capabilities to an already diverse skill set. Expected June 2026.</p>
-    </div>
-    <div class="upcoming-cards">
-      <div class="upcoming-card">
-        <div class="upcoming-icon">☁️</div>
-        <div class="upcoming-info">
-          <div class="upcoming-name">SAP Analytics Cloud Certification</div>
-          <div class="upcoming-org">SAP · Exam Pending</div>
-          <div class="upcoming-badge">Expected Jun 2026</div>
+  <div class="certs-scroll-wrap">
+    <div class="certs-scroll">
+      <div class="cert-card in-progress">
+        <div class="cert-icon-wrap">🏗️</div>
+        <div class="cert-info">
+          <div class="cert-name">SAP Implementation Consultant — S/4HANA Cloud Public Edition</div>
+          <div class="cert-org">SAP</div>
+          <span class="cert-status">In Progress</span>
+          <div class="cert-date">Sep 2026</div>
         </div>
       </div>
-      <div class="upcoming-card">
-        <div class="upcoming-icon">🏗️</div>
-        <div class="upcoming-info">
-          <div class="upcoming-name">SAP S/4HANA Cloud Certification</div>
-          <div class="upcoming-org">SAP · Exam Pending</div>
-          <div class="upcoming-badge">Expected Jun 2026</div>
+      <div class="cert-card in-progress">
+        <div class="cert-icon-wrap">☁️</div>
+        <div class="cert-info">
+          <div class="cert-name">SAP Analytics Cloud (SAC) Certification</div>
+          <div class="cert-org">SAP</div>
+          <span class="cert-status">In Progress</span>
+          <div class="cert-date">Sep 2026</div>
         </div>
       </div>
+      <div class="cert-card in-progress">
+        <div class="cert-icon-wrap">📘</div>
+        <div class="cert-info">
+          <div class="cert-name">ACCA — 6 exemptions via BUE-accredited degree</div>
+          <div class="cert-org">ACCA · pursuing registration on graduation</div>
+          <span class="cert-status">Pursuing</span>
+          <div class="cert-date">2026</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon-wrap">🏢</div>
+        <div class="cert-info">
+          <div class="cert-name">SAP Business Fundamentals Training (30 hrs)</div>
+          <div class="cert-org">SAP · The British University in Egypt</div>
+          <div class="cert-date">Jan 2026</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon-wrap">📈</div>
+        <div class="cert-info">
+          <div class="cert-name">LSEG Financial Markets & Workspace Certificates</div>
+          <div class="cert-org">London Stock Exchange Group (LSEG)</div>
+          <div class="cert-date">Mar 2026</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon-wrap">📋</div>
+        <div class="cert-info">
+          <div class="cert-name">Project Management Training</div>
+          <div class="cert-org">INJAZ Al-Arab · PMI Educational Foundation</div>
+          <div class="cert-date">Jun 2025</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon-wrap">👩‍💼</div>
+        <div class="cert-info">
+          <div class="cert-name">She Leads Program</div>
+          <div class="cert-org">The British University in Egypt</div>
+          <div class="cert-date">Jun 2025</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon-wrap">🔗</div>
+        <div class="cert-info">
+          <div class="cert-name">LinkedIn Workshop</div>
+          <div class="cert-org">The British University in Egypt</div>
+          <div class="cert-date">Jun 2025</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon-wrap">💻</div>
+        <div class="cert-info">
+          <div class="cert-name">Front-End Web Development Program</div>
+          <div class="cert-org">Information Technology Institute (ITI)</div>
+          <div class="cert-date">Feb 2025</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon-wrap">🌟</div>
+        <div class="cert-info">
+          <div class="cert-name">Youth Leadership & Empowerment Program</div>
+          <div class="cert-org">NXL</div>
+          <div class="cert-date">2024</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon-wrap">🤖</div>
+        <div class="cert-info">
+          <div class="cert-name">AI Career Essentials Program</div>
+          <div class="cert-org">ALX Africa</div>
+          <div class="cert-date">2023</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon-wrap">📡</div>
+        <div class="cert-info">
+          <div class="cert-name">Telecommunications & Regulatory Awareness</div>
+          <div class="cert-org">National Telecommunications Regulatory Authority (NTRA)</div>
+          <div class="cert-date">2023</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon-wrap">⚖️</div>
+        <div class="cert-info">
+          <div class="cert-name">Intellectual Property Course</div>
+          <div class="cert-org">World Intellectual Property Organization (WIPO)</div>
+          <div class="cert-date">2022</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon-wrap">🎓</div>
+        <div class="cert-info">
+          <div class="cert-name">Leadership Program</div>
+          <div class="cert-org">The British University in Egypt</div>
+          <div class="cert-date">2022</div>
+        </div>
+      </div>
+    </div>
+    <div class="certs-hint">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+      Scroll for more credentials
     </div>
   </div>
 </section>
@@ -976,11 +867,11 @@
       <div class="edu-card reveal">
         <div class="edu-badge-label">The British University in Egypt</div>
         <div class="edu-uni">BSc Business Administration</div>
-        <div class="edu-degree">Finance & Accounting Major</div>
+        <div class="edu-degree">Dual Degree with London South Bank University (LSBU) — Accounting and Finance</div>
         <div class="edu-stats">
-          <div><span class="edu-stat-val">3<span>.0</span></span><span class="edu-stat-label">GPA / 4.0</span></div>
-          <div><span class="edu-stat-val">2<span>:1</span></span><span class="edu-stat-label">Upper Second</span></div>
-          <div><span class="edu-stat-val">Aug<span> '26</span></span><span class="edu-stat-label">Graduation</span></div>
+          <div><span class="edu-stat-val">77<span>%</span></span><span class="edu-stat-label">Final Award</span></div>
+          <div><span class="edu-stat-val">V.G.<span>+H</span></span><span class="edu-stat-label">Very Good w/ Honours</span></div>
+          <div><span class="edu-stat-val">Jul<span> '26</span></span><span class="edu-stat-label">Graduated</span></div>
         </div>
       </div>
     </div>
@@ -1032,24 +923,9 @@
       </a>
     </div>
 
-    <button class="message-btn" id="msgToggle">Send a Message</button>
-
-    <div class="message-box" id="messageBox">
-      <form id="messageForm">
-        <input type="email" placeholder="Your email address" name="email" required>
-        <textarea placeholder="Tell me about the opportunity, the role, or what you're looking for..." rows="5" required></textarea>
-        <input type="file" id="attachment" name="attachment" multiple>
-        <div class="form-btns">
-          <button type="submit">Send Message</button>
-          <button type="button" class="close-btn">Cancel</button>
-        </div>
-      </form>
-      <div class="confirmation" id="confirmation">✓ Sent! I'll be in touch soon.</div>
-    </div>
-
     <div class="footer-line">
       <span>© 2026 Malak Tawfik. All rights reserved.</span>
-      <span>Finance & Data Analytics · BUE 2026</span>
+      <span>Finance & Accounting · BUE/LSBU 2026</span>
     </div>
   </div>
 </section>
@@ -1066,7 +942,7 @@
     ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
     requestAnimationFrame(animateCursor);
   })();
-  document.querySelectorAll('a, button, .tl-content, .skill-group, .proj-card, .ach-card, .cert-card, .activity-item, .upcoming-card').forEach(el => {
+  document.querySelectorAll('a, button, .tl-content, .skill-group, .proj-card, .ach-card, .cert-card, .activity-item').forEach(el => {
     el.addEventListener('mouseenter', () => ring.classList.add('hover'));
     el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
   });
@@ -1080,57 +956,12 @@
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((e, i) => {
       if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        setTimeout(() => e.target.classList.add('visible'), i * 60);
         observer.unobserve(e.target);
       }
     });
   }, { threshold: 0.07 });
-  document.querySelectorAll('.reveal, .skill-group, .proj-card, .proj-add-card, .ach-card, .tl-item, .cert-card, .upcoming-card').forEach(el => observer.observe(el));
-
-  /* ── MESSAGE BOX ── */
-  const msgToggle = document.getElementById('msgToggle');
-  const messageBox = document.getElementById('messageBox');
-  const confirmation = document.getElementById('confirmation');
-  const messageForm = document.getElementById('messageForm');
-
-  msgToggle.addEventListener('click', () => {
-    messageBox.classList.add('active');
-    confirmation.classList.remove('active');
-    messageBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  });
-  document.querySelector('.close-btn').addEventListener('click', () => {
-    messageBox.classList.remove('active');
-    messageForm.reset();
-    confirmation.classList.remove('active');
-  });
-
-  messageForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.querySelector('input[type="email"]').value;
-    const message = document.querySelector('textarea').value;
-    const attachments = document.getElementById('attachment').files;
-    try {
-      const formData = new FormData();
-      formData.append('email', email);
-      formData.append('message', message);
-      for (let file of attachments) formData.append('attachments', file);
-      const response = await fetch('https://portfolio-backend-3qrdc4dqn-malaks-projects-94eec807.vercel.app/api/send-email', {
-        method: 'POST', body: formData,
-      });
-      if (response.ok) {
-        messageForm.reset();
-        confirmation.classList.add('active');
-        setTimeout(() => {
-          messageBox.classList.remove('active');
-          confirmation.classList.remove('active');
-        }, 3000);
-      } else {
-        alert(`Failed to send message. Server says: ${await response.text()}`);
-      }
-    } catch (error) {
-      alert(`An error occurred: ${error.message}`);
-    }
-  });
+  document.querySelectorAll('.reveal, .skill-group, .proj-card, .proj-add-card, .ach-card, .tl-item, .cert-card').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
